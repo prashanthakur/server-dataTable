@@ -43,8 +43,8 @@ app.post('/api/generate-pdf', (req, res) => {
   let counter = 20;
   selectionData.map((i) => {
 
-    doc.fontSize(20).text(`${i.word} - ${i.text}`, 50, 50 + counter);
-    counter = counter + 40;
+    doc.fontSize(16).text(`${i.word} - ${i.text}`, 50, 50 + counter);
+    counter = counter + 60;
   })
   doc.end();
   output.on('finish', () => {
@@ -57,7 +57,7 @@ app.post('/api/generate-pdf', (req, res) => {
         res.setHeader('Content-Type', 'application/pdf');
         // Stream the file to the response
         fs.createReadStream(pdfPath).pipe(res);
-        res.json({'success':"true",'msg':'email sent successfully'})
+        // res.json({'success':"true",'msg':'email sent successfully'})
       })
       .catch((error) => {
         console.error('Email sending failed:', error);
