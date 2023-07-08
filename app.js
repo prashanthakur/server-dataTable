@@ -94,7 +94,7 @@ async function sendEmail(recipient, attachmentPath) {
   return transporter.sendMail(message);
 }
 
-app.listen(4000, () => {
+app.listen(PORT, () => {
   console.log('Server is running on port 4000');
 });
 
