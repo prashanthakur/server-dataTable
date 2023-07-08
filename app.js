@@ -33,8 +33,10 @@ app.get('/words',async(req,res)=>{
 })
 
 app.post('/api/generate-pdf', (req, res) => {
-  const selectionData = req.body;
-
+  const selectionData = req.body.words;
+  user_email = req.body.userEmail
+  // console.log(selectionData)
+  // console.log(user_email)
   // Create a PDF document
   const doc = new pdfkit();
   const pdfPath = path.join(__dirname, 'generated.pdf');
@@ -48,8 +50,8 @@ app.post('/api/generate-pdf', (req, res) => {
   })
   doc.end();
   output.on('finish', () => {
-    // Send email with the generated PDF as attachment
-    sendEmail('useremail@gmail.com', pdfPath)
+    //Send email with the generated PDF as attachment
+    sendEmail(user_email, pdfPath)
       .then(() => {
         console.log('Email sent successfully!');
         // Set the appropriate headers for file download
@@ -68,18 +70,22 @@ app.post('/api/generate-pdf', (req, res) => {
 
 async function sendEmail(recipient, attachmentPath) {
   const transporter = nodemailer.createTransport({
+    service:'gmail',
+    host:'smtp.gmail.com',
+    port:587,
+    secure:false,
     // Configure your email transport settings here (e.g., SMTP, SendGrid, etc.)
     // See nodemailer documentation for details
-    host: 'smtp.ethereal.email',
-    port: 587,
+    // host: 'smtp.ethereal.email',
+    // port: 587,
     auth: {
-      user: 'cade67@ethereal.email',
-      pass: 'aNrxSRNJSbv156ewXu'
+      user: 'prashantsingh991036@gmail.com',
+      pass: 'zkbzvajobvgadlab'
   }
   });
 
   const message = {
-    from: 'cade67@ethereal.email',
+    from: 'Prashant singh',
     to: recipient,
     subject: 'Generated PDF',
     text: 'Please find the attached PDF file.',
