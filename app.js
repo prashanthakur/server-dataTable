@@ -42,11 +42,11 @@ app.post('/api/generate-pdf', (req, res) => {
   const pdfPath = path.join(__dirname, 'generated.pdf');
   const output = fs.createWriteStream(pdfPath);
   doc.pipe(output);
-  let counter = 20;
+  // let counter = 20;
   selectionData.map((i) => {
 
-    doc.fontSize(16).text(`${i.word} - ${i.text}`, 50, 50 + counter);
-    counter = counter + 60;
+    doc.fontSize(16).text(`${i.word} - ${i.text}`).moveDown();
+    // counter = counter + 60;
   })
   doc.end();
   output.on('finish', () => {
